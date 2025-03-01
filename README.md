@@ -1,6 +1,12 @@
 # ether.net
 This is a social network app around the subject of cables (USB-C, RJ45, Micro USB...).
 
+## Dependencies
+Here are the NPM dependencies for this project:
+```
+ @clerk/nextjs
+```
+
 ## Getting Started
 
 First, run the development server:

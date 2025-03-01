@@ -1,15 +1,32 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import {
+  ClerkProvider,
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from '@clerk/nextjs';
+
+import { Source_Code_Pro, Nunito_Sans, Fustat } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const sourceCodePro = Source_Code_Pro({
+  subsets: ['latin'], // Add subsets as needed
+  weight: ['400', '700'], // Specify weights
+  display: 'swap', // Set the display behavior
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const nunitoSans = Nunito_Sans({
+  subsets: ['latin'],
+  weight: ['300', '400', '600'],
+  display: 'swap',
+});
+
+const fustat = Fustat({
+  subsets: ['latin'],
+  weight: ['300', '400', '600'],
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -20,15 +37,24 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
-  );
+    <ClerkProvider>
+      <html lang="en">
+        <body className={`${fustat.variable} antialiased`}>
+          <header className="flex justify-end items-center p-4 gap-4 h-16">
+            <SignedOut>
+              <SignInButton />
+              <SignUpButton />
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+          </header>
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
+  )
 }
