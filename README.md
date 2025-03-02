@@ -5,6 +5,8 @@ This is a social network app around the subject of cables (USB-C, RJ45, Micro US
 Here are the NPM dependencies for this project:
 ```
  @clerk/nextjs
+ prisma
+ @prisma/client
 ```
 
 ## Getting Started
