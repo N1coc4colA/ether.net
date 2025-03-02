@@ -7,6 +7,8 @@ Here are the NPM dependencies for this project:
  @clerk/nextjs
  prisma
  @prisma/client
+ react-hot-toast
+ @uploadthing/react
 ```
 
 ## Getting Started
