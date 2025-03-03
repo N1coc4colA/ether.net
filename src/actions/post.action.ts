@@ -259,3 +259,39 @@ export async function deletePost(postId: string) {
         };
     }
 }
+
+export async function searchPosts(searchString: string) {
+    try {
+        const posts = await prisma.post.findMany({
+            where: {
+                OR: [
+                    {
+                        content: {
+                            contains: searchString,
+                            mode: "insensitive",
+                        },
+                    },
+                ],
+            },
+            select: {
+                id: true,
+                content: true,
+                author: {
+                    select: {
+                        id: true,
+                        name: true,
+                        username: true,
+                        image: true,
+                    },
+                },
+                createdAt: true,
+                updateAt: true,
+            },
+        });
+
+        return posts;
+    } catch (error) {
+        console.error("Error searching posts:", error);
+        throw new Error("Failed to search posts");
+    }
+}

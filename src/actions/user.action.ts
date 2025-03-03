@@ -4,6 +4,69 @@ import prisma from "@/lib/prisma";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 
+export async function searchUsers(searchString: string) {
+    try {
+        const userId = await getDbUserId();
+
+        if (!userId) {
+            return [];
+        }
+
+        const users = await prisma.user.findMany({
+            where: {
+                AND: [
+                    {
+                        id: {
+                            not: userId,
+                        },
+                    },
+                    {
+                        OR: [
+                            {
+                                name: {
+                                    contains: searchString,
+                                    mode: "insensitive",
+                                },
+                            },
+                            {
+                                username: {
+                                    contains: searchString,
+                                    mode: "insensitive",
+                                },
+                            },
+                            {
+                                email: {
+                                    contains: searchString,
+                                    mode: "insensitive",
+                                },
+                            },
+                        ],
+                    },
+                ],
+            },
+            select: {
+                id: true,
+                name: true,
+                username: true,
+                email: true,
+                image: true,
+                _count: {
+                    select: {
+                        followers: true,
+                        following: true,
+                        posts: true,
+                    },
+                },
+            },
+        });
+
+        return users;
+    } catch (error) {
+        console.error("Error searching users:", error);
+        throw new Error("Failed to search users");
+    }
+}
+
 export async function syncUser() {
     try {
         const { userId } = await auth();

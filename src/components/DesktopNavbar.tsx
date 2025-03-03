@@ -4,12 +4,17 @@ import Link from "next/link";
 import { SignInButton, UserButton } from "@clerk/nextjs";
 import ModeToggle from "@/components/ModeToggle";
 import { currentUser } from "@clerk/nextjs/server";
+import SearchBar from "./SearchBar";
 
 async function DesktopNavbar() {
     const user = await currentUser();
 
     return (
+        <>
+        <SearchBar />
+
         <div className="hidden md:flex items-center space-x-4">
+
             <Button variant="ghost" className="flex items-center gap-2" asChild>
                 <Link href="/">
                     <HomeIcon className="w-4 h-4" />
@@ -45,6 +50,7 @@ async function DesktopNavbar() {
 
             <ModeToggle />
         </div>
+        </>
     );
 }
 
