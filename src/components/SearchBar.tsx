@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation"; // Use next/navigation for client-side navigation
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Search } from "lucide-react";
 
 function SearchBar() {
     const [searchString, setSearchString] = useState("");
@@ -31,7 +32,10 @@ function SearchBar() {
                 placeholder="Search users..."
                 className="flex-grow"
             />
-            <Button onClick={handleSearch}>Search</Button>
+            <Button onClick={handleSearch}>
+                <Search/>
+                <span className="hidden md:block">Search</span>
+            </Button>
         </div>
     );
 }

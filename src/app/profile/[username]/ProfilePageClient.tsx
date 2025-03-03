@@ -221,7 +221,7 @@ function ProfilePageClient({
                             className="flex items-center gap-2 rounded-none data-[state=active]:border-b-2 data-[state=active]:border-primary
                             data-[state=active]:bg-transparent px-6 font-semibold"
                         >
-                            <CircleUserRound className="size-4" />
+                            <UsersRound className="size-4" />
                             Followers
                         </TabsTrigger>
                     </TabsList>

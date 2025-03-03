@@ -22,9 +22,9 @@ async function Navbar() {
                                 src="/favicon.svg"
                                 width={32}
                                 height={32}
-                                alt="Picture of the author"
+                                alt="Logo of ether.net"
                             />
-                            ether.net
+                            <span className="hidden md:block">ether.net</span>
                         </Link>
                     </div>
                     <DesktopNavbar />
