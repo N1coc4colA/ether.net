@@ -5,13 +5,13 @@ import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Textarea } from "@/components/ui/textarea";
-import { ImageIcon, Loader2Icon, SendIcon } from "lucide-react";
+import { ImageUpIcon, Loader2Icon, CableIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { createPost } from "@/actions/post.action";
 import toast from "react-hot-toast";
-import { ImageUpload } from "@/components/ImageUpload";
+import ImageUpload from "@/components/ImageUpload";
 
-export function CreatePost() {
+function CreatePost() {
     const { user } = useUser();
     const [content, setContent] = useState("");
     const [imageUrl, setImageUrl] = useState("");
@@ -84,7 +84,7 @@ export function CreatePost() {
                                 onClick={() => setShowImageUpload(!showImageUpload)}
                                 disabled={isPosting}
                             >
-                                <ImageIcon className="size-4 mr-2" />
+                                <ImageUpIcon className="size-4 mr-2" />
                                 Photo
                             </Button>
                         </div>
@@ -100,7 +100,7 @@ export function CreatePost() {
                                 </>
                             ) : (
                                 <>
-                                    <SendIcon className="size-4 mr-2" />
+                                    <CableIcon className="size-4 mr-2" />
                                     Post
                                 </>
                             )}
@@ -111,3 +111,5 @@ export function CreatePost() {
         </Card>
     );
 }
+
+export default CreatePost;

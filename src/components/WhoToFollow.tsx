@@ -2,9 +2,9 @@ import { getRandomUsers } from "@/actions/user.action";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import { Link } from "lucide-react";
-import { FollowButton } from "@/components/FollowButton";
+import FollowButton from "@/components/FollowButton";
 
-export async function WhoToFollow() {
+async function WhoToFollow() {
     const users = await getRandomUsers();
     if (users.length == 0) {
         return null;
@@ -41,3 +41,5 @@ export async function WhoToFollow() {
         </Card>
     );
 }
+
+export default WhoToFollow;

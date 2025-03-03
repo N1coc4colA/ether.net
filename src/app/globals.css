@@ -128,7 +128,14 @@
   }
 }
 
-.h-24
-{
+.h-24 {
   height: calc(var(--spacing) * 24);
+}
+
+.metalic {
+  background: linear-gradient(7deg, rgb(147, 147, 147), rgb(221, 223, 255));
+}
+
+.metalic-dark {
+    background: linear-gradient(7deg, rgb(19, 19, 19), rgb(105, 107, 128)) !important;
 }

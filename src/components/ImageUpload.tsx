@@ -9,7 +9,7 @@ interface ImageUploadProps {
     endpoint: "postImage";
 }
 
-export function ImageUpload({ endpoint, onChange, value }: ImageUploadProps) {
+function ImageUpload({ endpoint, onChange, value }: ImageUploadProps) {
     if (value) {
         return (
             <div className="relative size-40">
@@ -37,3 +37,5 @@ export function ImageUpload({ endpoint, onChange, value }: ImageUploadProps) {
         />
     );
 }
+
+export default ImageUpload;

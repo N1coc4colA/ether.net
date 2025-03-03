@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { SignInButton, SignUpButton } from "@clerk/nextjs";
 import { Button } from "./ui/button";
 
-export function UnauthenticatedSidebar() {
+function UnauthenticatedSidebar() {
     return (
         <div className="sticky top-20">
             <Card>
@@ -28,3 +28,5 @@ export function UnauthenticatedSidebar() {
         </div>
     );
 }
+
+export default UnauthenticatedSidebar;

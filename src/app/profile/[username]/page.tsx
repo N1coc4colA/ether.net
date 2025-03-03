@@ -41,4 +41,5 @@ async function ProfilePageServer({ params }: { params: { username: string } }) {
         />
     );
 }
+
 export default ProfilePageServer;

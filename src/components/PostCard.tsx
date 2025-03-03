@@ -8,7 +8,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { formatDistanceToNow } from "date-fns";
-import { DeleteAlertDialog } from "@/components/DeleteAlertDialog";
+import DeleteAlertDialog from "@/components/DeleteAlertDialog";
 import { Button } from "@/components/ui/button";
 import { HeartIcon, LogInIcon, MessageCircleIcon, SendIcon } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
@@ -16,7 +16,7 @@ import { Textarea } from "@/components/ui/textarea";
 type Posts = Awaited<ReturnType<typeof getPosts>>;
 type Post = Posts[number];
 
-export function PostCard({ post, dbUserId }: { post: Post; dbUserId: string | null }) {
+function PostCard({ post, dbUserId }: { post: Post; dbUserId: string | null }) {
     const { user } = useUser();
     const [newComment, setNewComment] = useState("");
     const [isCommenting, setIsCommenting] = useState(false);
@@ -243,3 +243,5 @@ export function PostCard({ post, dbUserId }: { post: Post; dbUserId: string | nu
         </Card>
     );
 }
+
+export default PostCard;

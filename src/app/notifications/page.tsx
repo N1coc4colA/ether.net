@@ -1,7 +1,7 @@
 "use client";
 
 import { getNotifications, markNotificationsAsRead } from "@/actions/notification.action";
-import { NotificationsSkeleton } from "@/components/NotificationSkeleton";
+import NotificationsSkeleton from "@/components/NotificationSkeleton";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -135,4 +135,5 @@ function NotificationsPage() {
         </div>
     );
 }
+
 export default NotificationsPage;

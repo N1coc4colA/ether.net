@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { DesktopNavbar } from "@/components/DesktopNavbar";
-import { MobileNavbar } from "@/components/MobileNavbar";
+import DesktopNavbar from "@/components/DesktopNavbar";
+import MobileNavbar from "@/components/MobileNavbar";
 import { currentUser } from "@clerk/nextjs/server";
 import { syncUser } from "@/actions/user.action";
 
-export async function Navbar() {
+async function Navbar() {
     const user = await currentUser();
 
     if (user) {
@@ -27,3 +27,5 @@ export async function Navbar() {
         </nav>
     );
 }
+
+export default Navbar;

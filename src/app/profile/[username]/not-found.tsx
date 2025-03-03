@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { HomeIcon, ArrowLeftIcon } from "lucide-react";
 
-export default function NotFound() {
+function NotFound() {
     return (
         <div className="min-h-[80vh] grid place-items-center px-4">
             <Card className="w-full max-w-md">
@@ -40,3 +40,5 @@ export default function NotFound() {
         </div>
     );
 }
+
+export default NotFound;

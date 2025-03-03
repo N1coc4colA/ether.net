@@ -17,7 +17,7 @@ import { useAuth, SignInButton, SignOutButton } from "@clerk/nextjs";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 
-export function MobileNavbar() {
+function MobileNavbar() {
     const [isMounted, setIsMounted] = useState(false);
     const [showMobileMenu, setShowMobileMenu] = useState(false);
     const { isSignedIn } = useAuth();
@@ -97,3 +97,5 @@ export function MobileNavbar() {
         </div>
     );
 }
+
+export default MobileNavbar;

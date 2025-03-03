@@ -2,10 +2,10 @@ import { BellIcon, HomeIcon, UserIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { SignInButton, UserButton } from "@clerk/nextjs";
-import { ModeToggle } from "@/components/ModeToggle";
+import ModeToggle from "@/components/ModeToggle";
 import { currentUser } from "@clerk/nextjs/server";
 
-export async function DesktopNavbar() {
+async function DesktopNavbar() {
     const user = await currentUser();
 
     return (
@@ -47,3 +47,5 @@ export async function DesktopNavbar() {
         </div>
     );
 }
+
+export default DesktopNavbar;

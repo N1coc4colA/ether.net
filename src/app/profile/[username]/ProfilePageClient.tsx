@@ -278,4 +278,5 @@ function ProfilePageClient({
         </div>
     );
 }
+
 export default ProfilePageClient;

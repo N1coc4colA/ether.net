@@ -1,5 +1,5 @@
 import { currentUser } from "@clerk/nextjs/server";
-import { UnauthenticatedSidebar } from "@/components/UnauthenticatedSidebar";
+import UnauthenticatedSidebar from "@/components/UnauthenticatedSidebar";
 import { getUserByClerkId } from "@/actions/user.action";
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
@@ -7,7 +7,7 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import { LinkIcon, MapPinIcon } from "lucide-react";
 
-export async function Sidebar() {
+async function Sidebar() {
     const authUser = await currentUser();
     if (!authUser) {
         return <UnauthenticatedSidebar />;
@@ -20,7 +20,7 @@ export async function Sidebar() {
 
     return (
         <div className="sticky top-20">
-            <Card>
+            <Card className="metalic">
                 <CardContent className="pt-6">
                     <div className="flex flex-col items-center text-center">
                         <Link
@@ -77,3 +77,5 @@ export async function Sidebar() {
         </div>
     );
 }
+
+export default Sidebar;
