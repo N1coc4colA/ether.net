@@ -1,6 +1,6 @@
 "use client";
 
-import { getProfileByUsername, getUserPosts, updateProfile } from "@/actions/profile.action";
+import { getProfileByUsername, getUserFollowings, getUserPosts, updateProfile } from "@/actions/profile.action";
 import { toggleFollow } from "@/actions/user.action";
 import PostCard from "@/components/PostCard";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
@@ -18,6 +18,7 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
+import UserCard from "@/components/UserCard";
 import { SignInButton, useUser } from "@clerk/nextjs";
 import { format } from "date-fns";
 import {
@@ -27,17 +28,20 @@ import {
     HeartIcon,
     LinkIcon,
     MapPinIcon,
+    CircleUserRound,
 } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
 type User = Awaited<ReturnType<typeof getProfileByUsername>>;
 type Posts = Awaited<ReturnType<typeof getUserPosts>>;
+type Followings = Awaited<ReturnType<typeof getUserFollowings>>;
 
 interface ProfilePageClientProps {
     user: NonNullable<User>;
     posts: Posts;
     likedPosts: Posts;
+    followings: Followings,
     isFollowing: boolean;
 }
 
@@ -45,6 +49,7 @@ function ProfilePageClient({
     isFollowing: initialIsFollowing,
     likedPosts,
     posts,
+    followings,
     user,
 }: ProfilePageClientProps) {
     const { user: currentUser } = useUser();
@@ -199,24 +204,42 @@ function ProfilePageClient({
                             <HeartIcon className="size-4" />
                             Likes
                         </TabsTrigger>
+                        <TabsTrigger
+                            value="follows"
+                            className="flex items-center gap-2 rounded-none data-[state=active]:border-b-2 data-[state=active]:border-primary
+                            data-[state=active]:bg-transparent px-6 font-semibold"
+                        >
+                            <CircleUserRound className="size-4" />
+                            Follows
+                        </TabsTrigger>
                     </TabsList>
 
                     <TabsContent value="posts" className="mt-6">
                         <div className="space-y-6">
-                            {posts.length > 0 ? (
-                                posts.map((post) => <PostCard key={post.id} post={post} dbUserId={user.id} />)
-                            ) : (
-                                <div className="text-center py-8 text-muted-foreground">No posts yet</div>
-                            )}
+                        {posts.length > 0 ? (
+                            posts.map((post) => <PostCard key={post.id} post={post} dbUserId={user.id} />)
+                        ) : (
+                            <div className="text-center py-8 text-muted-foreground">No posts yet</div>
+                        )}
                         </div>
                     </TabsContent>
 
                     <TabsContent value="likes" className="mt-6">
                         <div className="space-y-6">
-                            {likedPosts.length > 0 ? (
-                                likedPosts.map((post) => <PostCard key={post.id} post={post} dbUserId={user.id} />)
+                        {likedPosts.length > 0 ? (
+                            likedPosts.map((post) => <PostCard key={post.id} post={post} dbUserId={user.id} />)
+                        ) : (
+                            <div className="text-center py-8 text-muted-foreground">No liked posts to show</div>
+                        )}
+                        </div>
+                    </TabsContent>
+
+                    <TabsContent value="follows" className="mt-6">
+                        <div className="space-y-6">
+                            {followings.length > 0 ? (
+                                followings.map((user) => <UserCard key={user.id} user={user} />)
                             ) : (
-                                <div className="text-center py-8 text-muted-foreground">No liked posts to show</div>
+                                <div className="text-center py-8 text-muted-foreground">No posts yet</div>
                             )}
                         </div>
                     </TabsContent>

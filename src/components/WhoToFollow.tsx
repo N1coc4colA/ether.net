@@ -2,7 +2,7 @@ import { getRandomUsers } from "@/actions/user.action";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import { Link } from "lucide-react";
-import FollowButton from "@/components/FollowButton";
+import UserCard from "@/components/UserCard";
 
 async function WhoToFollow() {
     const users = await getRandomUsers();
@@ -17,25 +17,7 @@ async function WhoToFollow() {
             </CardHeader>
             <CardContent>
                 <div className="space-y-4">
-                    {users.map((user) => (
-                        <div key={user.id} className="flex gap-2 items-center justify-between ">
-                            <div className="flex items-center gap-1">
-                                <Link href={`/profile/${user.username}`}>
-                                    <Avatar>
-                                        <AvatarImage src={user.image ?? "/avatar.png"} />
-                                    </Avatar>
-                                </Link>
-                                <div className="text-xs">
-                                    <Link href={`/profile/${user.username}`} className="font-medium cursor-pointer">
-                                        {user.name}
-                                    </Link>
-                                    <p className="text-muted-foreground">@{user.username}</p>
-                                    <p className="text-muted-foreground">{user._count.followers} followers</p>
-                                </div>
-                            </div>
-                            <FollowButton userId={user.id} />
-                        </div>
-                    ))}
+                    {users.map((user) => <UserCard key={user.id} user={user} />)}
                 </div>
             </CardContent>
         </Card>

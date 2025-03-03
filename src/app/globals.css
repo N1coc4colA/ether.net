@@ -43,7 +43,6 @@
   --sidebar-accent-foreground: oklch(0.21 0.034 264.665);
   --sidebar-border: oklch(0.928 0.006 264.531);
   --sidebar-ring: oklch(0.707 0.022 261.325);
-  --metalic-bg: linear-gradient(7deg, rgb(147, 147, 147), rgb(221, 223, 255));
 }
 
 .dark {
@@ -79,7 +78,6 @@
   --sidebar-accent-foreground: oklch(0.985 0.002 247.839);
   --sidebar-border: oklch(0.278 0.033 256.848);
   --sidebar-ring: oklch(0.446 0.03 256.802);
-  --metalic-bg: linear-gradient(7deg, rgb(19, 19, 19), rgb(105, 107, 128));
 }
 
 @theme inline {
