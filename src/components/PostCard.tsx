@@ -10,7 +10,7 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { formatDistanceToNow } from "date-fns";
 import DeleteAlertDialog from "@/components/DeleteAlertDialog";
 import { Button } from "@/components/ui/button";
-import { HeartIcon, LogInIcon, MessageCircleIcon, SendIcon } from "lucide-react";
+import { HeartIcon, LogInIcon, MessageCircleIcon, UnplugIcon } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 
 type Posts = Awaited<ReturnType<typeof getPosts>>;
@@ -217,7 +217,7 @@ function PostCard({ post, dbUserId }: { post: Post; dbUserId: string | null }) {
                                                         "Posting..."
                                                     ) : (
                                                         <>
-                                                            <SendIcon className="size-4" />
+                                                            <UnplugIcon className="size-4" />
                                                             Comment
                                                         </>
                                                     )}

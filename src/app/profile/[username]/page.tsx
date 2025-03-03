@@ -3,6 +3,7 @@ import {
     getUserLikedPosts,
     getUserPosts,
     getUserFollowings,
+    getUserFollowers,
     isFollowing,
 } from "@/actions/profile.action";
 import { notFound } from "next/navigation";
@@ -27,10 +28,11 @@ async function ProfilePageServer({ params }: { params: { username: string } }) {
         notFound();
     }
 
-    const [posts, likedPosts, followings, isCurrentUserFollowing] = await Promise.all([
+    const [posts, likedPosts, followings, followers, isCurrentUserFollowing] = await Promise.all([
         getUserPosts(user.id),
         getUserLikedPosts(user.id),
         getUserFollowings(user.id),
+        getUserFollowers(user.id),
         isFollowing(user.id),
     ]);
 
@@ -41,6 +43,7 @@ async function ProfilePageServer({ params }: { params: { username: string } }) {
             likedPosts={likedPosts}
             isFollowing={isCurrentUserFollowing}
             followings={followings}
+            followers={followers}
         />
     );
 }

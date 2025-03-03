@@ -1,6 +1,6 @@
 "use client";
 
-import { getProfileByUsername, getUserFollowings, getUserPosts, updateProfile } from "@/actions/profile.action";
+import { getProfileByUsername, getUserFollowings, getUserFollowers, getUserPosts, updateProfile } from "@/actions/profile.action";
 import { toggleFollow } from "@/actions/user.action";
 import PostCard from "@/components/PostCard";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
@@ -29,6 +29,7 @@ import {
     LinkIcon,
     MapPinIcon,
     CircleUserRound,
+    UsersRound,
 } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -36,12 +37,14 @@ import toast from "react-hot-toast";
 type User = Awaited<ReturnType<typeof getProfileByUsername>>;
 type Posts = Awaited<ReturnType<typeof getUserPosts>>;
 type Followings = Awaited<ReturnType<typeof getUserFollowings>>;
+type Followers = Awaited<ReturnType<typeof getUserFollowers>>;
 
 interface ProfilePageClientProps {
     user: NonNullable<User>;
     posts: Posts;
     likedPosts: Posts;
     followings: Followings,
+    followers: Followers,
     isFollowing: boolean;
 }
 
@@ -50,6 +53,7 @@ function ProfilePageClient({
     likedPosts,
     posts,
     followings,
+    followers,
     user,
 }: ProfilePageClientProps) {
     const { user: currentUser } = useUser();
@@ -205,12 +209,20 @@ function ProfilePageClient({
                             Likes
                         </TabsTrigger>
                         <TabsTrigger
-                            value="follows"
+                            value="followings"
                             className="flex items-center gap-2 rounded-none data-[state=active]:border-b-2 data-[state=active]:border-primary
                             data-[state=active]:bg-transparent px-6 font-semibold"
                         >
                             <CircleUserRound className="size-4" />
-                            Follows
+                            Followings
+                        </TabsTrigger>
+                        <TabsTrigger
+                            value="followers"
+                            className="flex items-center gap-2 rounded-none data-[state=active]:border-b-2 data-[state=active]:border-primary
+                            data-[state=active]:bg-transparent px-6 font-semibold"
+                        >
+                            <CircleUserRound className="size-4" />
+                            Followers
                         </TabsTrigger>
                     </TabsList>
 
@@ -234,12 +246,22 @@ function ProfilePageClient({
                         </div>
                     </TabsContent>
 
-                    <TabsContent value="follows" className="mt-6">
+                    <TabsContent value="followings" className="mt-6">
                         <div className="space-y-6">
                             {followings.length > 0 ? (
                                 followings.map((user) => <UserCard key={user.id} user={user} />)
                             ) : (
-                                <div className="text-center py-8 text-muted-foreground">No posts yet</div>
+                                <div className="text-center py-8 text-muted-foreground">No follow yet</div>
+                            )}
+                        </div>
+                    </TabsContent>
+
+                    <TabsContent value="followers" className="mt-6">
+                        <div className="space-y-6">
+                            {followers.length > 0 ? (
+                                followers.map((user) => <UserCard key={user.id} user={user} />)
+                            ) : (
+                                <div className="text-center py-8 text-muted-foreground">No follower yet</div>
                             )}
                         </div>
                     </TabsContent>

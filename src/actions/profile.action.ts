@@ -67,6 +67,36 @@ export async function getUserFollowings(userId: string) {
     }
 }
 
+export async function getUserFollowers(userId: string) {
+    try {
+        const followings = await prisma.follows.findMany({
+            where: {
+                followerId: userId,
+            },
+            include: {
+                follower: {
+                    select: {
+                        id: true,
+                        name: true,
+                        username: true,
+                        image: true,
+                        _count: {
+                            select: {
+                                followers: true,
+                            },
+                        },
+                    },
+                },
+            },
+        });
+
+        return followings.map(follow => follow.follower);
+    } catch (error) {
+        console.error("Error fetching user followings:", error);
+        throw new Error("Failed to fetch user followings");
+    }
+}
+
 export async function getUserPosts(userId: string) {
     try {
         const posts = await prisma.post.findMany({
