@@ -1,5 +1,5 @@
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
-import { Link } from "lucide-react";
+import Link from "next/link";
 import FollowButton from "@/components/FollowButton";
 
 function UserCard({ user }: { user: object }) {
@@ -7,8 +7,10 @@ function UserCard({ user }: { user: object }) {
         <div key={user.id} className="flex gap-2 items-center justify-between ">
             <div className="flex items-center gap-1">
                 <Link href={`/profile/${user.username}`}>
-                    <Avatar>
-                        <AvatarImage src={user.image ?? "/avatar.png"} />
+                    <Avatar className="size-8 sm:w-10 sm:h-10">
+                        <AvatarImage 
+                            className="size-8 rounded-full sm:w-10 sm:h-10"
+                            src={user.image ?? "/avatar.png"} />
                     </Avatar>
                 </Link>
                 <div className="text-xs">
