@@ -2,7 +2,17 @@ import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import Link from "next/link";
 import FollowButton from "@/components/FollowButton";
 
-function UserCard({ user }: { user: object }) {
+interface User {
+    id: string;
+    username: string;
+    name: string | null;
+    image: string | null;
+    _count: {
+        followers: number;
+    };
+}
+
+function UserCard({ user }: { user: User }) {
     return (
         <div key={user.id} className="flex gap-2 items-center justify-between ">
             <div className="flex items-center gap-1">

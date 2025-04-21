@@ -2,25 +2,70 @@
 
 import { useSearchParams } from "next/navigation"; // Use useSearchParams for client-side query parameters
 import { useEffect, useState } from "react";
-import { getDbUserId, searchUsers } from "@/actions/user.action";
+import { searchUsers } from "@/actions/user.action";
 import { searchPosts } from "@/actions/post.action";
 import UserCard from "@/components/UserCard";
 import PostCard from "@/components/PostCard";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"; // Assuming you have a Tabs component
 import { Spinner } from "@/components/ui/spinner";
 
+interface User {
+    id: string;
+    email: string;
+    username: string;
+    name: string | null;
+    image: string | null;
+    _count: {
+        posts: number;
+        followers: number;
+        following: number;
+    };
+}
+
+interface Post {
+    id: string;
+    title?: string;
+    content: string | null;
+    authorId: string;
+    createdAt: Date;
+    updateAt: Date;
+    image: string | null;
+    comments: {
+        id: string;
+        createdAt: Date;
+        postId: string;
+        authorId: string;
+        content: string;
+        author: {
+            id: string;
+            username: string;
+            name: string | null;
+            image: string | null;
+        };
+    }[];
+    likes: {
+        userId: string;
+    }[];
+    _count: {
+        comments: number;
+        likes: number;
+    };
+    author: {
+        id: string;
+        username: string;
+        name: string | null;
+        image: string | null;
+    };
+}
+
 function SearchResults() {
     const searchParams = useSearchParams();
     const query = searchParams.get("query"); // Get query param
     const dbUserId = searchParams.get("id"); // Get query param
-    const [users, setUsers] = useState([]);
-    const [posts, setPosts] = useState([]);
+    const [users, setUsers] = useState<User[]>([]);
+    const [posts, setPosts] = useState<Post[]>([]);
     const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState("posts"); // To make the posts tab as initial one
-
-    if (!dbUserId) {
-        console.log(dbUserId);
-    }
 
     useEffect(() => {
         if (query) {
