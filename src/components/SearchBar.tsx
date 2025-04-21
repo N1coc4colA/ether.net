@@ -6,13 +6,13 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
 
-function SearchBar() {
+function SearchBar({ dbUserId }: { dbUserId: string | null }) {
     const [searchString, setSearchString] = useState("");
     const router = useRouter();
 
     const handleSearch = () => {
         if (searchString.trim() !== "") {
-            router.push(`/search?query=${searchString}`);
+            router.push(`/search?id=${dbUserId}&query=${searchString}`);
         }
     };
 

@@ -2,7 +2,7 @@
 
 import { useSearchParams } from "next/navigation"; // Use useSearchParams for client-side query parameters
 import { useEffect, useState } from "react";
-import { searchUsers } from "@/actions/user.action";
+import { getDbUserId, searchUsers } from "@/actions/user.action";
 import { searchPosts } from "@/actions/post.action";
 import UserCard from "@/components/UserCard";
 import PostCard from "@/components/PostCard";
@@ -12,10 +12,15 @@ import { Spinner } from "@/components/ui/spinner";
 function SearchResults() {
     const searchParams = useSearchParams();
     const query = searchParams.get("query"); // Get query param
+    const dbUserId = searchParams.get("id"); // Get query param
     const [users, setUsers] = useState([]);
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState("posts"); // To make the posts tab as initial one
+
+    if (!dbUserId) {
+        console.log(dbUserId);
+    }
 
     useEffect(() => {
         if (query) {
@@ -44,7 +49,7 @@ function SearchResults() {
 
     return (
         <div>
-            <h1 className="mb-3">Search Results for "{query}"</h1>
+            <h1>Search Results for "{query}"</h1>
             <Tabs value={activeTab} onValueChange={setActiveTab}>
                 <TabsList>
                     <TabsTrigger value="users">Users</TabsTrigger>
@@ -62,7 +67,7 @@ function SearchResults() {
                 <TabsContent value="posts">
                     <div className="space-y-4">
                         {posts.length > 0 ? (
-                            posts.map((post) => <PostCard key={post.id} post={post} />)
+                            posts.map((post) => <PostCard key={post.id} post={post} dbUserId={dbUserId} />)
                         ) : (
                             <p>No posts found</p>
                         )}

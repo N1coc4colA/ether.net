@@ -8,48 +8,53 @@ import SearchBar from "./SearchBar";
 
 async function DesktopNavbar() {
     const user = await currentUser();
+    let dbUserId = null;
+
+    if (user) {
+        dbUserId = user.id;
+    }
 
     return (
         <>
-        <SearchBar />
+            <SearchBar dbUserId={dbUserId} />
 
-        <div className="hidden md:flex items-center space-x-4">
+            <div className="hidden md:flex items-center space-x-4">
 
-            <Button variant="ghost" className="flex items-center gap-2" asChild>
-                <Link href="/">
-                    <HomeIcon className="w-4 h-4" />
-                    <span className="hidden lg:inline">Home</span>
-                </Link>
-            </Button>
+                <Button variant="ghost" className="flex items-center gap-2" asChild>
+                    <Link href="/">
+                        <HomeIcon className="w-4 h-4" />
+                        <span className="hidden lg:inline">Home</span>
+                    </Link>
+                </Button>
 
-            {user ? (
-                <>
-                    <Button variant="ghost" className="flex items-center gap-2" asChild>
-                        <Link href="/notifications">
-                            <BellIcon className="w-4 h-4" />
-                            <span className="hidden lg:inline">Notifications</span>
-                        </Link>
-                    </Button>
-                    <Button variant="ghost" className="flex items-center gap-2" asChild>
-                        <Link
-                            href={`/profile/${
-                            user.username ?? user.emailAddresses[0].emailAddress.split("@")[0]
-                            }`}
-                        >
-                            <UserIcon className="w-4 h-4" />
-                            <span className="hidden lg:inline">Profile</span>
-                        </Link>
-                    </Button>
-                    <UserButton />
-                </>
-            ) : (
-                <SignInButton mode="modal">
-                    <Button variant="default">Sign In</Button>
-                </SignInButton>
-            )}
+                {user ? (
+                    <>
+                        <Button variant="ghost" className="flex items-center gap-2" asChild>
+                            <Link href="/notifications">
+                                <BellIcon className="w-4 h-4" />
+                                <span className="hidden lg:inline">Notifications</span>
+                            </Link>
+                        </Button>
+                        <Button variant="ghost" className="flex items-center gap-2" asChild>
+                            <Link
+                                href={`/profile/${
+                                user.username ?? user.emailAddresses[0].emailAddress.split("@")[0]
+                                }`}
+                            >
+                                <UserIcon className="w-4 h-4" />
+                                <span className="hidden lg:inline">Profile</span>
+                            </Link>
+                        </Button>
+                        <UserButton />
+                    </>
+                ) : (
+                    <SignInButton mode="modal">
+                        <Button variant="default">Sign In</Button>
+                    </SignInButton>
+                )}
 
-            <ModeToggle />
-        </div>
+                <ModeToggle />
+            </div>
         </>
     );
 }
