@@ -273,6 +273,58 @@ export async function searchPosts(searchString: string) {
                     },
                 ],
             },
+            orderBy: {
+              createdAt: "desc",
+            },
+            include: {
+                author: {
+                    select: {
+                        id: true,
+                        name: true,
+                        image: true,
+                        username: true,
+                    },
+                },
+                comments: {
+                    include: {
+                        author: {
+                            select: {
+                                id: true,
+                                username: true,
+                                image: true,
+                                name: true,
+                            },
+                        },
+                    },
+                    orderBy: {
+                        createdAt: "asc",
+                    },
+                },
+                likes: {
+                    select: {
+                        userId: true,
+                    },
+                },
+                _count: {
+                    select: {
+                        likes: true,
+                        comments: true,
+                    },
+                },
+            },
+        });
+
+        /*const posts = await prisma.post.findMany({
+            where: {
+                OR: [
+                    {
+                        content: {
+                            contains: searchString,
+                            mode: "insensitive",
+                        },
+                    },
+                ],
+            },
             select: {
                 id: true,
                 content: true,
@@ -313,7 +365,7 @@ export async function searchPosts(searchString: string) {
                     },
                 },
             },
-        });
+        });*/
 
         return posts;
     } catch (error) {
